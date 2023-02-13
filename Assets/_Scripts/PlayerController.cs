@@ -7,14 +7,27 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] Transform _groundCheck;
     [SerializeField] LayerMask _groundLayer;
+    [SerializeField] LayerMask _bouncerLayer;
     [SerializeField] float _speed = 300;
     [SerializeField] float _jumpingPower = 600;
-
+    [SerializeField] float jumpMulitplyer;
     Rigidbody2D _rigidbody;
     Animator _animator;
     float _horizontal;
     bool _isFacingRight = true;
     bool _canDoubleJump = false;
+
+    [SerializeField] private Transform wallCheck;
+    [SerializeField] private LayerMask wallLayer;
+    private bool isWallSliding;
+    private float wallSlidingSpeed = 2f;
+    private bool isWallJumping;
+    private float wallJumpingDirection;
+    private float wallJumpingTime = 0.2f;
+    private float wallJumpingCounter;
+    private float wallJumpingDuration = 0.4f;
+    private Vector2 wallJumpingPower = new Vector2(8f, 16f);
+    private float wallJumpCd = 0;
 
     void Awake()
     {
@@ -29,6 +42,8 @@ public class PlayerController : MonoBehaviour
         Flip();
         HandleAnimations();
         Jump();
+        WallSlide();
+        WallJump();
     }
 
     private void HandleAnimations()
@@ -68,7 +83,14 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && (IsGrounded() || _canDoubleJump))
         {
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _jumpingPower * Time.fixedDeltaTime);
+            if (Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _bouncerLayer))
+            {
+                _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _jumpingPower *jumpMulitplyer* Time.fixedDeltaTime);
+            }
+            else
+            {
+                _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _jumpingPower * Time.fixedDeltaTime);
+            }
             _canDoubleJump = !_canDoubleJump;
         }
 
@@ -90,6 +112,69 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // znak => je isto kao da smo napisali: { return... }
-    private bool IsGrounded() => Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _groundLayer);
+    private bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _groundLayer)|| Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _bouncerLayer);
+    }
+
+    private bool IsWalled()
+    {
+        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
+    }
+
+    private void WallSlide()
+    {
+        if (IsWalled() && !IsGrounded() && _horizontal != 0f)
+        {
+            isWallSliding = true;
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, Mathf.Clamp(_rigidbody.velocity.y, -wallSlidingSpeed, float.MaxValue));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
+
+    private void WallJump()
+    {
+        if (isWallSliding)
+        {
+            isWallJumping = false;
+            wallJumpingDirection = -transform.localScale.x;
+            wallJumpingCounter = wallJumpingTime;
+
+            CancelInvoke(nameof(StopWallJumping));
+        }
+        else
+        {
+            wallJumpingCounter -= Time.deltaTime;
+        }
+
+        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
+        {
+            isWallJumping = true;
+            _rigidbody.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x,
+                wallJumpingPower.y);
+            wallJumpingCounter = 0f;
+
+           // _canDoubleJump = true;
+
+            if (transform.localScale.x != wallJumpingDirection)
+            {
+                _isFacingRight = !_isFacingRight;
+                Vector3 localeScale = transform.localScale;
+                localeScale.x *= -1f;
+                transform.localScale = localeScale;
+            }
+
+            Invoke(nameof(StopWallJumping), wallJumpingDirection);
+
+        }
+
+    }
+
+    private void StopWallJumping()
+    {
+        isWallJumping = false;
+    }
 }
