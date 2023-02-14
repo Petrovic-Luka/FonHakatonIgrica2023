@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _speed = 300;
     [SerializeField] float _jumpingPower = 600;
     [SerializeField] float jumpMulitplyer;
+    [SerializeField] float wallJumpCdValue=1f;
     Rigidbody2D _rigidbody;
     Animator _animator;
     float _horizontal;
@@ -21,13 +22,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     private bool isWallSliding;
     private float wallSlidingSpeed = 2f;
-    private bool isWallJumping;
     private float wallJumpingDirection;
-    private float wallJumpingTime = 0.2f;
-    private float wallJumpingCounter;
-    private float wallJumpingDuration = 0.4f;
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
-    private float wallJumpCd = 0;
+    public float wallJumpCd = 0;
 
     void Awake()
     {
@@ -43,7 +40,12 @@ public class PlayerController : MonoBehaviour
         HandleAnimations();
         Jump();
         WallSlide();
-        WallJump();
+        // WallJump();
+        WallJump2();
+        if(wallJumpCd > 0)
+        {
+            wallJumpCd -= Time.deltaTime;
+        }
     }
 
     private void HandleAnimations()
@@ -68,9 +70,9 @@ public class PlayerController : MonoBehaviour
     void Move()
     {
         //ako se drzi shift onda se sprintuje
-        if (Input.GetKey(KeyCode.LeftShift))
-            _rigidbody.velocity = new Vector2(_horizontal * _speed * Time.fixedDeltaTime * 1.5f, _rigidbody.velocity.y);
-        else
+        //if (Input.GetKey(KeyCode.LeftShift))
+        //    _rigidbody.velocity = new Vector2(_horizontal * _speed * Time.fixedDeltaTime * 1.5f, _rigidbody.velocity.y);
+        //else
             _rigidbody.velocity = new Vector2(_horizontal * _speed * Time.fixedDeltaTime, _rigidbody.velocity.y);
     }
 
@@ -135,46 +137,58 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void WallJump()
+    private void WallJump2()
     {
-        if (isWallSliding)
+        if(isWallSliding && Input.GetButtonDown("Jump") && wallJumpCd <= 0f)
         {
-            isWallJumping = false;
+            _canDoubleJump = true;
             wallJumpingDirection = -transform.localScale.x;
-            wallJumpingCounter = wallJumpingTime;
-
-            CancelInvoke(nameof(StopWallJumping));
+            _rigidbody.velocity = new Vector2(-wallJumpingDirection * wallJumpingPower.x,
+               wallJumpingPower.y);
+            wallJumpCd = wallJumpCdValue;
         }
-        else
-        {
-            wallJumpingCounter -= Time.deltaTime;
-        }
-
-        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
-        {
-            isWallJumping = true;
-            _rigidbody.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x,
-                wallJumpingPower.y);
-            wallJumpingCounter = 0f;
-
-           // _canDoubleJump = true;
-
-            if (transform.localScale.x != wallJumpingDirection)
-            {
-                _isFacingRight = !_isFacingRight;
-                Vector3 localeScale = transform.localScale;
-                localeScale.x *= -1f;
-                transform.localScale = localeScale;
-            }
-
-            Invoke(nameof(StopWallJumping), wallJumpingDirection);
-
-        }
-
     }
 
-    private void StopWallJumping()
-    {
-        isWallJumping = false;
-    }
+    //private void WallJump()
+    //{
+    //    if (isWallSliding)
+    //    {
+    //        isWallJumping = false;
+    //        wallJumpingDirection = -transform.localScale.x;
+    //        wallJumpingCounter = wallJumpingTime;
+
+    //        CancelInvoke(nameof(StopWallJumping));
+    //    }
+    //    else
+    //    {
+    //        wallJumpingCounter -= Time.deltaTime;
+    //    }
+
+    //    if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
+    //    {
+    //        isWallJumping = true;
+    //        _rigidbody.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x,
+    //            wallJumpingPower.y);
+    //        wallJumpingCounter = 0f;
+
+    //        _canDoubleJump = true;
+
+    //        if (transform.localScale.x != wallJumpingDirection)
+    //        {
+    //            _isFacingRight = !_isFacingRight;
+    //            Vector3 localeScale = transform.localScale;
+    //            localeScale.x *= -1f;
+    //            transform.localScale = localeScale;
+    //        }
+
+    //        Invoke(nameof(StopWallJumping), wallJumpingDuration);
+
+    //    }
+
+    //}
+
+    //private void StopWallJumping()
+    //{
+    //    isWallJumping = false;
+    //}
 }
