@@ -2,25 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
+using System.Linq;
 
 public class Timer : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float timer;
     public TMP_Text textScore;
+
     void Start()
     {
-        //DontDestroyOnLoad(gameObject);
-        //textScore.text = "Time:";
-        //timer = 0;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        float seconds=(int)(timer%60);
-        float minutes = Mathf.FloorToInt(timer / 60);
-        textScore.text = "Time: " + minutes + " " + seconds;
+        int scene = SceneManager.GetActiveScene().buildIndex;
+        if (scene==2)
+        {
+            textScore.text = "Congratulations";
+        }
+        else
+        {
+            TimeManager.Mytimer += Time.deltaTime;
+            float seconds = (int)(TimeManager.Mytimer % 60);
+            float minutes = Mathf.FloorToInt(TimeManager.Mytimer / 60);
+            textScore.text = "Time: " + minutes + " " + seconds;
+        }
     }
 }
