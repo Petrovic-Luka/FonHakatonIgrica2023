@@ -20,16 +20,13 @@ public class Timer : MonoBehaviour
     void Update()
     {
         int scene = SceneManager.GetActiveScene().buildIndex;
-        if (scene==2)
-        {
-            textScore.text = "Congratulations";
-        }
-        else
-        {
+        //if (scene==2)
+        //{
+        //    textScore.text = "Congratulations";
+        //}
             TimeManager.Mytimer += Time.deltaTime;
             float seconds = (int)(TimeManager.Mytimer % 60);
             float minutes = Mathf.FloorToInt(TimeManager.Mytimer / 60);
             textScore.text = "Time: " + minutes + " " + seconds;
-        }
     }
 }
