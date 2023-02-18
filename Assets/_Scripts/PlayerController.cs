@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
     private bool isWallSliding;
     private float wallSlidingSpeed = 2f;
     private float wallJumpingDirection;
-    private Vector2 wallJumpingPower = new Vector2(8f, 16f);
+    private Vector2 wallJumpingPower = new Vector2(12f, 20f);
     public float wallJumpCd = 0;
 
     void Awake()
@@ -40,9 +41,10 @@ public class PlayerController : MonoBehaviour
         HandleAnimations();
         Jump();
         WallSlide();
-        // WallJump();
         WallJump2();
-        if(wallJumpCd > 0)
+        Bouncer();
+        Menu();
+        if (wallJumpCd > 0)
         {
             wallJumpCd -= Time.deltaTime;
         }
@@ -60,6 +62,17 @@ public class PlayerController : MonoBehaviour
         else
             _animator.SetBool("isJumping", true);
 
+    }
+    private void Menu()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     void FixedUpdate()
@@ -85,14 +98,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && (IsGrounded() || _canDoubleJump))
         {
-            if (Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _bouncerLayer))
-            {
-                _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _jumpingPower *jumpMulitplyer* Time.fixedDeltaTime);
-            }
-            else
-            {
-                _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _jumpingPower * Time.fixedDeltaTime);
-            }
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _jumpingPower * Time.fixedDeltaTime);           
             _canDoubleJump = !_canDoubleJump;
         }
 
@@ -116,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _groundLayer)|| Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _bouncerLayer);
+        return Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _groundLayer);
     }
 
     private bool IsWalled()
@@ -142,10 +148,18 @@ public class PlayerController : MonoBehaviour
         if(isWallSliding && Input.GetButtonDown("Jump") && wallJumpCd <= 0f)
         {
             _canDoubleJump = true;
-            wallJumpingDirection = -transform.localScale.x;
-            _rigidbody.velocity = new Vector2(-wallJumpingDirection * wallJumpingPower.x,
+            wallJumpingDirection = transform.localScale.x;
+            _rigidbody.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x,
                wallJumpingPower.y);
             wallJumpCd = wallJumpCdValue;
+        }
+    }
+
+    private void Bouncer()
+    {
+        if (Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _bouncerLayer))
+        {
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x,_jumpingPower*jumpMulitplyer * Time.fixedDeltaTime);
         }
     }
 

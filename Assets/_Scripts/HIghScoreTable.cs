@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using TMPro;
@@ -19,12 +20,14 @@ public class HIghScoreTable : MonoBehaviour
         entryTemplate.gameObject.SetActive(false);
         AddHighscoreEntry(TimeManager.Mytimer, PlayerPrefs.GetString("name"));
         string jsonRead = PlayerPrefs.GetString("highscoreTable");
+        //string jsonRead = System.IO.File.ReadAllText(Application.persistentDataPath + "/Leaderboard.json");
         Highscore temp= JsonUtility.FromJson<Highscore>(jsonRead);
         entries = temp.entriesList;
         entriesTransformList = new List<Transform>();
         entries=entries.OrderBy(x => x.score).Take(10).ToList();
         for(int i=0;i<entries.Count;i++)
         {
+            if (entries[i]!=null)
             CreateHighScoreEntryTransform(entries[i], entryContainer, entriesTransformList,i);
         }
     }
@@ -42,13 +45,20 @@ public class HIghScoreTable : MonoBehaviour
 
     private void AddHighscoreEntry(float score,string name)
     {
+        if(!File.Exists(Application.persistentDataPath + "/Leaderboard.json"))
+        {
+            System.IO.File.AppendAllText(Application.persistentDataPath + "/Leaderboard.json", "");
+        }
         HighscoreEntry entry = new HighscoreEntry() { score = score, name = name };
         string jsonRead = PlayerPrefs.GetString("highscoreTable");
+       // string jsonRead = System.IO.File.ReadAllText(Application.persistentDataPath + "/Leaderboard.json");
         Highscore temp = JsonUtility.FromJson<Highscore>(jsonRead);
         temp.entriesList.Add(entry);
         string json = JsonUtility.ToJson(temp);
+       // System.IO.File.WriteAllText(Application.persistentDataPath + "/Leaderboard.json", json);
         PlayerPrefs.SetString("highscoreTable", json);
         PlayerPrefs.Save();
+        //Debug.Log(Application.persistentDataPath);
     }
 }
 

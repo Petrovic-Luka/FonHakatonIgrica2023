@@ -241,7 +241,7 @@ MonoBehaviour:
   _speed: 700
   _jumpingPower: 800
   jumpMulitplyer: 1.55
-  wallJumpCdValue: 0.3
+  wallJumpCdValue: 0
   wallCheck: {fileID: 8531111998745033970}
   wallLayer:
     serializedVersion: 2
