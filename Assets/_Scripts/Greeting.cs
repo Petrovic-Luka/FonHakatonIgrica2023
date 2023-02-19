@@ -4,18 +4,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Greetings : MonoBehaviour
+public class Greeting : MonoBehaviour
 {
-    public TMP_Text displayText;
+    public TMP_Text textGreeting;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        displayText.text = "Zdravo " + PlayerPrefs.GetString("name", "nepoznato") + " ovo je kevin";
+        textGreeting.text="Zdravo "+ PlayerPrefs.GetString("name");
     }
 
     public void NextScene()
     {
-
-        Debug.Log("is this working");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

@@ -45,14 +45,19 @@ public class HIghScoreTable : MonoBehaviour
 
     private void AddHighscoreEntry(float score,string name)
     {
-        if(!File.Exists(Application.persistentDataPath + "/Leaderboard.json"))
-        {
-            System.IO.File.AppendAllText(Application.persistentDataPath + "/Leaderboard.json", "");
-        }
+        //if(!File.Exists(Application.persistentDataPath + "/Leaderboard.json"))
+        //{
+        //    System.IO.File.AppendAllText(Application.persistentDataPath + "/Leaderboard.json", "");
+        //}
         HighscoreEntry entry = new HighscoreEntry() { score = score, name = name };
         string jsonRead = PlayerPrefs.GetString("highscoreTable");
        // string jsonRead = System.IO.File.ReadAllText(Application.persistentDataPath + "/Leaderboard.json");
         Highscore temp = JsonUtility.FromJson<Highscore>(jsonRead);
+        if(temp==null)
+        {
+            temp=new Highscore();
+            temp.entriesList = new List<HighscoreEntry>();
+        }
         temp.entriesList.Add(entry);
         string json = JsonUtility.ToJson(temp);
        // System.IO.File.WriteAllText(Application.persistentDataPath + "/Leaderboard.json", json);
