@@ -11,6 +11,7 @@ public class Spikes : MonoBehaviour
         {
             int scene = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(scene);
+            TimeManager.Mytimer += Time.timeSinceLevelLoad;
         }
     }
 }

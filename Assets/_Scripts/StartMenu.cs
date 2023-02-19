@@ -9,6 +9,7 @@ public class StartMenu : MonoBehaviour
     {
         TimeManager.Mytimer = 0;
         TimeManager.Score = 0;
+        Application.targetFrameRate = 60;
         SceneManager.LoadScene(1);
     }
     public void QuitGame()

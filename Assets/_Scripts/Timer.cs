@@ -11,26 +11,28 @@ public class Timer : MonoBehaviour
     // Start is called before the first frame update
     public TMP_Text textScore;
 
+    private float time;
     void Start()
     {
-
+        //time = TimeManager.Mytimer;
     }
 
     // Update is called once per frame
     void Update()
     {
-        int scene = SceneManager.GetActiveScene().buildIndex;
-        //if (scene==2)
-        //{
-        //    textScore.text = "Congratulations";
-        //}
-            TimeManager.Mytimer += Time.deltaTime;
-            float seconds = (int)(TimeManager.Mytimer % 60);
-            float minutes = Mathf.FloorToInt(TimeManager.Mytimer / 60);
+
+    }
+    private void FixedUpdate()
+    {
+            
+            float seconds = Mathf.FloorToInt((TimeManager.Mytimer+Time.timeSinceLevelLoad) % 60);
+            float minutes = Mathf.FloorToInt((TimeManager.Mytimer + Time.timeSinceLevelLoad) / 60);
             if(minutes>=3)
              {
             SceneManager.LoadScene(12);
              }
             textScore.text = "Time: " + minutes + ":" + seconds;
+
+        
     }
 }
