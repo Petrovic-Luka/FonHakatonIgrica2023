@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
+            TimeManager.Mytimer += Time.timeSinceLevelLoad;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -128,7 +129,7 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded()
     {
         _wallJumping = 0;
-        return Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _groundLayer) || Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _bouncerLayer);
+        return Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _groundLayer);
     }
 
     private bool IsWalled()

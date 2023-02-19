@@ -24,7 +24,7 @@ public class HIghScoreTable : MonoBehaviour
         Highscore temp= JsonUtility.FromJson<Highscore>(jsonRead);
         entries = temp.entriesList;
         entriesTransformList = new List<Transform>();
-        entries=entries.OrderBy(x => x.score).Take(10).ToList();
+        entries=entries.OrderByDescending(x => x.score).Take(10).ToList();
         for(int i=0;i<entries.Count;i++)
         {
             if (entries[i]!=null)
@@ -33,12 +33,12 @@ public class HIghScoreTable : MonoBehaviour
     }
     private void CreateHighScoreEntryTransform(HighscoreEntry entry,Transform container,List<Transform> transformsList,int position)
     {
-        float templateHight = 60f;
+        float templateHight = 78f;
         Transform entryTransform = Instantiate(entryTemplate, container);
         RectTransform entryRectTransform = entryTemplate.GetComponent<RectTransform>();
         entryRectTransform.anchoredPosition = new Vector2(0, -templateHight * (position+1));
         entryTransform.gameObject.SetActive(true);
-        entryTransform.Find("posText").GetComponent<TMP_Text>().text = "" + (position);
+        entryTransform.Find("posText").GetComponent<TMP_Text>().text = "" + (position+1);
         entryTransform.Find("scoreText").GetComponent<TMP_Text>().text = "" + entry.score;
         entryTransform.Find("nameText").GetComponent<TMP_Text>().text = entry.name;
     }

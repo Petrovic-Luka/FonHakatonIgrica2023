@@ -10,7 +10,8 @@ public class Greeting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        textGreeting.text="Zdravo "+ PlayerPrefs.GetString("name");
+        Application.targetFrameRate = 60;
+        textGreeting.text="Zdravo "+ PlayerPrefs.GetString("name") +" ovo je Kevin pomozi mu da stigne do cilja i imaš šansu da osvojiš nagradu. Za ovo imaš 3 minuta a poene dobijaš za svaki kompletiran nivo, i to što brže više poena dobijaš. Vreme startuje kada klikneš na dugme.";
     }
 
     public void NextScene()
