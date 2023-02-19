@@ -27,6 +27,10 @@ public class Timer : MonoBehaviour
             TimeManager.Mytimer += Time.deltaTime;
             float seconds = (int)(TimeManager.Mytimer % 60);
             float minutes = Mathf.FloorToInt(TimeManager.Mytimer / 60);
-            textScore.text = "Time: " + minutes + " " + seconds;
+            if(minutes>=3)
+             {
+            SceneManager.LoadScene(12);
+             }
+            textScore.text = "Time: " + minutes + ":" + seconds;
     }
 }

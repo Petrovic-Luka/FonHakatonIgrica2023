@@ -18,7 +18,7 @@ public class HIghScoreTable : MonoBehaviour
         entryContainer = transform.Find("HighscoreEntryContainer");
         entryTemplate = entryContainer.Find("HighscoreEntryTemplate");
         entryTemplate.gameObject.SetActive(false);
-        AddHighscoreEntry(TimeManager.Mytimer, PlayerPrefs.GetString("name"));
+        AddHighscoreEntry(TimeManager.Score, PlayerPrefs.GetString("name"));
         string jsonRead = PlayerPrefs.GetString("highscoreTable");
         //string jsonRead = System.IO.File.ReadAllText(Application.persistentDataPath + "/Leaderboard.json");
         Highscore temp= JsonUtility.FromJson<Highscore>(jsonRead);

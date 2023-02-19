@@ -18,13 +18,14 @@ public class PlayerController : MonoBehaviour
     float _horizontal;
     bool _isFacingRight = true;
     bool _canDoubleJump = false;
+    int _wallJumping = 0;
 
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
     private bool isWallSliding;
     private float wallSlidingSpeed = 2f;
     private float wallJumpingDirection;
-    private Vector2 wallJumpingPower = new Vector2(12f, 20f);
+    private Vector2 wallJumpingPower = new Vector2(9f, 20f);
     public float wallJumpCd = 0;
 
     void Awake()
@@ -47,6 +48,10 @@ public class PlayerController : MonoBehaviour
         if (wallJumpCd > 0)
         {
             wallJumpCd -= Time.deltaTime;
+
+        }
+        else {
+            Move();
         }
     }
 
@@ -77,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
+       //Move();
     }
 
     void Move()
@@ -86,7 +91,7 @@ public class PlayerController : MonoBehaviour
         //if (Input.GetKey(KeyCode.LeftShift))
         //    _rigidbody.velocity = new Vector2(_horizontal * _speed * Time.fixedDeltaTime * 1.5f, _rigidbody.velocity.y);
         //else
-            _rigidbody.velocity = new Vector2(_horizontal * _speed * Time.fixedDeltaTime, _rigidbody.velocity.y);
+            _rigidbody.velocity = new Vector2(_horizontal * _speed * Time.fixedDeltaTime , _rigidbody.velocity.y);
     }
 
     private void Jump()
@@ -122,7 +127,8 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _groundLayer);
+        _wallJumping = 0;
+        return Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _groundLayer) || Physics2D.OverlapCircle(_groundCheck.position, 0.2f, _bouncerLayer);
     }
 
     private bool IsWalled()
@@ -148,8 +154,11 @@ public class PlayerController : MonoBehaviour
         if(isWallSliding && Input.GetButtonDown("Jump") && wallJumpCd <= 0f)
         {
             _canDoubleJump = true;
-            wallJumpingDirection = transform.localScale.x;
-            _rigidbody.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x,
+            _wallJumping = 1;
+            wallJumpingDirection = Mathf.Sign(transform.localScale.x);
+            Debug.Log(wallJumpingDirection);
+            Debug.Log(-wallJumpingDirection * wallJumpingPower.x);
+            _rigidbody.velocity = new Vector2(-wallJumpingDirection * wallJumpingPower.x,
                wallJumpingPower.y);
             wallJumpCd = wallJumpCdValue;
         }

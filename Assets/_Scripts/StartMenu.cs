@@ -8,6 +8,7 @@ public class StartMenu : MonoBehaviour
     public void StartGame()
     {
         TimeManager.Mytimer = 0;
+        TimeManager.Score = 0;
         SceneManager.LoadScene(1);
     }
     public void QuitGame()

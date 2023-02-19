@@ -5,4 +5,5 @@ using UnityEngine;
 public class TimeManager
 {
     public static float Mytimer;
+    public static float Score;
 }

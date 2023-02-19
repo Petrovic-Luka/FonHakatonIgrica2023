@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8531111997895455759}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.16, z: 0}
+  m_LocalPosition: {x: 0, y: -10.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8531111998745033973}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1093, y: -0.0085, z: 0}
+  m_LocalPosition: {x: 11.44, y: -0.0085, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -92,7 +92,7 @@ Transform:
   m_GameObject: {fileID: 8531111999641143499}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.89, y: -0.65, z: 0}
-  m_LocalScale: {x: 7.668281, y: 10.0625, z: 5}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8531111997895455756}
@@ -141,7 +141,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6367560908665664636, guid: 40de9a8703e2e5a47882b0b86451c741, type: 3}
+  m_Sprite: {fileID: -598403435, guid: 01f1d0f02b37e1343b38791ba2f2d5d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -160,7 +160,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8531111999641143499}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 0fb79ca8db13f1a4eb31fcb6eda3ae55, type: 2}
   m_CullingMode: 0
@@ -206,18 +206,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000732556, y: -0.03988014}
+  m_Offset: {x: -0.0007324219, y: -0.0051107407}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 23, y: 21}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.22091535, y: 0.24023971}
+  m_Size: {x: 22.890427, y: 20.75406}
   m_EdgeRadius: 0
 --- !u!114 &8531111999641143497
 MonoBehaviour:
@@ -241,7 +241,7 @@ MonoBehaviour:
   _speed: 700
   _jumpingPower: 800
   jumpMulitplyer: 1.55
-  wallJumpCdValue: 0
+  wallJumpCdValue: 0.25
   wallCheck: {fileID: 8531111998745033970}
   wallLayer:
     serializedVersion: 2

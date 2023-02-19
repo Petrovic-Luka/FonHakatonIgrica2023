@@ -186,6 +186,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6789441164874312309, guid: b16bfdf1ed646ee4d884b6f82dfc5e4a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8283946481429751769, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
     - target: {fileID: 6789441164874312311, guid: b16bfdf1ed646ee4d884b6f82dfc5e4a, type: 3}
       propertyPath: m_Name
       value: Wall (1)
@@ -259,6 +263,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DisappearnigPlatform 1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9165940189257839656, guid: 9220719c98567574e8df4d311088c95a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3581127029532586042, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9220719c98567574e8df4d311088c95a, type: 3}
 --- !u!1001 &387747478
@@ -412,7 +420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3128023792060923317, guid: 6ed305db4e68af849b1e8fddf30a5315, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3128023792060923317, guid: 6ed305db4e68af849b1e8fddf30a5315, type: 3}
       propertyPath: m_LocalScale.x
@@ -432,7 +440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3128023792060923317, guid: 6ed305db4e68af849b1e8fddf30a5315, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 39.51
+      value: 38.44
       objectReference: {fileID: 0}
     - target: {fileID: 3128023792060923317, guid: 6ed305db4e68af849b1e8fddf30a5315, type: 3}
       propertyPath: m_LocalPosition.z
@@ -770,6 +778,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DisappearnigPlatform 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9165940189257839656, guid: 9220719c98567574e8df4d311088c95a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3581127029532586042, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9220719c98567574e8df4d311088c95a, type: 3}
 --- !u!1001 &1451828586
@@ -1246,6 +1258,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DisappearnigPlatform 1 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 9165940189257839656, guid: 9220719c98567574e8df4d311088c95a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3581127029532586042, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
+    - target: {fileID: 9165940189257839658, guid: 9220719c98567574e8df4d311088c95a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.34
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9220719c98567574e8df4d311088c95a, type: 3}
 --- !u!1 &2140230850
@@ -1333,7 +1353,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8620202154233844528, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
+  m_Sprite: {fileID: 2379953761323448013, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
